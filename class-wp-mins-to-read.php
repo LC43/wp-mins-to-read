@@ -128,10 +128,10 @@ class WP_MinsToRead {
 		$word_count = str_word_count( strip_tags( $content ) );
 
 		//Calculate minutes to read
-		$mtr_raw = ($word_count / 180);
+		$mtr_raw = ( $word_count / 200 );
 
 		//round minutes to read
-		$mtr_round = round($mtr_raw);
+		$mtr_round = round( $mtr_raw );
 
 		//if less them 1 min, make 1 min
 		$mtr = 0 === $mtr_round ? __( '1 min read', 'wp-mins-to-read' ) : $mtr_round . __( ' min read', 'wp-mins-to-read' );
