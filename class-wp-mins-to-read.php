@@ -66,6 +66,11 @@ class WP_MinsToRead {
 		add_action( 'init', array( $this, 'load_plugin_textdomain' ) );
 		add_action( 'manage_posts_custom_column' , array( $this, 'display_mtr_column' ), 10, 2 );
 		add_filter( 'manage_posts_columns' , array( $this, 'add_mtr_column' ) );
+		add_filter( 'save_post' , array( $this, 'delete_mtr_transient' ) );
+	}
+
+	public function delete_mtr_transient( $post_id ) {
+		delete_transient( $post_id . '-minread' );
 	}
 
 	/**
