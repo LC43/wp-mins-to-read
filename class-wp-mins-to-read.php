@@ -36,8 +36,9 @@ class WP_MinsToRead {
 	 * @since    1.0.0
 	 *
 	 * @var      string
+	 * @deprecated
 	 */
-	protected $plugin_slug = ' wp-mins-to-read';
+	protected $plugin_slug = 'wp-mins-to-read';
 
 	/**
 	 * Instance of this class.
@@ -106,13 +107,9 @@ class WP_MinsToRead {
 	 * @since    1.0.0
 	 */
 	public function load_plugin_textdomain() {
-		$domain = $this->plugin_slug;
-		$locale = apply_filters( 'plugin_locale', get_locale(), $domain );
-
-		load_textdomain( $domain, trailingslashit( WP_LANG_DIR ) . $domain . '/' . $domain . '-' . $locale . '.mo' );
-		load_plugin_textdomain( $domain, FALSE, basename( dirname( __FILE__ ) ) . '/lang/' );
+		load_plugin_textdomain( 'wp-mins-to-read', false, dirname( plugin_basename( __FILE__ ) ) . '/lang' );
 	}
-	
+
 	/**
 	 * Calculate the mins to read for a givin post
 	 *
@@ -137,7 +134,7 @@ class WP_MinsToRead {
 		$mtr_round = round($mtr_raw);
 
 		//if less them 1 min, make 1 min
-		$mtr = $mtr_round == 0 ? '1 min read' : $mtr_round . ' min read';
+		$mtr = 0 === $mtr_round ? __( '1 min read', 'wp-mins-to-read' ) : $mtr_round . __( ' min read', 'wp-mins-to-read' );
 
 		//Set transient with out values
 		set_transient( $post_id . '-minread',
@@ -182,9 +179,11 @@ class WP_MinsToRead {
 	 * @since     1.0.0
 	 */
 	function add_mtr_column( $columns ) {
-	    return array_merge( $columns, 
-	        array( 'mtr' => __( 'Min Read', 'WP_MinsToRead' ) ) );
-	}	
+		return array_merge(
+			$columns,
+			array( 'mtr' => __( 'Min Read', 'wp-mins-to-read' ) )
+		);
+	}
 
 	/**
 	 * Adds Min Read vairables to admin column
