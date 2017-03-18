@@ -4,7 +4,7 @@
 Plugin Name: WP Mins To Read
 Plugin URI: https://github.com/twittem/wp-minRead
 Description: A simple plugin to generate the minutes to read for WordPress posts. Increase blog readership by qualifying the time commitment needed to read your post.
-Version: 0.1
+Version: 1.0.2
 Author: Edward McIntyre @twittem
 Author URI: http://github.com/twittem/
 License: GPL-2.0+

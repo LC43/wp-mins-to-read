@@ -6,7 +6,7 @@
 * Calculates the time it will take to read a post
 * Adds `Min Read` column to WordPress post admin
 * Provides a function for outputting `Min Read` on posts and archives
-* Uses WordPress transients to store calculated values and increase performance. 
+* Uses WordPress transients to store calculated values and increase performance.
 
 ## Installation
 1. Copy the `wp-mins-to-read` directory into your `wp-content/plugins` directory
@@ -15,7 +15,7 @@
 4. Click on *Activate*
 
 ## Theme Integration
-In order to output the time to read on the front end you will need to add the function call to your theme. You can do this by calling the ` get_mtr(); ` function. 
+In order to output the time to read on the front end you will need to add the function call to your theme. You can do this by calling the ` get_mtr(); ` function.
 Typically you want to add the time to read above the post title. To do this you will need to edit two files.
 
 ### Add to singal post & archive pages
@@ -42,6 +42,11 @@ if( class_exists( 'WP_MinsToRead' ) ) {
 * Add Deactivation function to delete transients from the database
 
 ## Changlog
+
+**1.0.2**
+* linted code
+* remove extra file
+* l18n return strings
 
 **1.0.1**
 * Updated theme integration info to avoid breaking the theme when the plugin is disabled.

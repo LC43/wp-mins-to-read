@@ -84,14 +84,14 @@ class WP_MinsToRead {
 	public static function get_instance() {
 
 		// If the single instance hasn't been set, set it now.
-		if ( null == self::$instance ) {
+		if ( null === self::$instance ) {
 			self::$instance = new self;
 		}
 
 		return self::$instance;
 	}
 
-	/*
+
 	public static function activate( $network_wide ) {
 		// TODO: Define activation functionality
 	}
@@ -99,7 +99,7 @@ class WP_MinsToRead {
 	public static function deactivate( $network_wide ) {
 		// TODO: Define deactivation functionality
 	}
-	*/
+
 
 	/**
 	 * Load the plugin text domain for translation.
@@ -115,11 +115,11 @@ class WP_MinsToRead {
 	 *
 	 * @since     1.0.0
 	 *
-	 * @param  mixed    Post ID
+	 * @param     mixed     Post ID
 	 *
 	 * @return    string    Returns 'min read' string
 	 */
-	public function calc_mtr($post_id) {
+	static function calc_mtr( $post_id ) {
 
 		//Get post content
 		$content = get_post_field( 'post_content', $post_id, 'display' );
@@ -145,31 +145,25 @@ class WP_MinsToRead {
 
 		return $mtr;
 	}
-	
+
 	/**
 	 * Fetches the mins to read transient from the database or generates a new transient
 	 *
 	 * @since     1.0.0
 	 *
-	 * @param  mixed    Post ID
+	 * @param     mixed     Post ID
 	 *
 	 * @return    string    Returns 'min read' string
 	 */
-	public function get_mtr($post_id) {
+	static function get_mtr( $post_id ) {
 
-		$transient = get_transient($post_id . '-minread');
-
-		// If does not transient exists calcualte it
+		$transient = get_transient( $post_id . '-minread' );
+		// If does not exists, calculate it
 		if ( false === $transient ) {
-			$mtr = WP_MinsToRead::calc_mtr($post_id);
+			$mtr = WP_MinsToRead::calc_mtr( $post_id );
 		} else {
-			if( get_the_modified_time('U', $post_id) > $transient['time'] ) {
-				$mtr = WP_MinsToRead::calc_mtr($post_id);
-			} else {
-				$mtr = $transient['value'];
-			}
+			$mtr = $transient;
 		}
-		
 		return $mtr;
 	}
 
@@ -191,8 +185,8 @@ class WP_MinsToRead {
 	 * @since     1.0.0
 	 */
 	function display_mtr_column( $column, $post_id ) {
-		if($column == 'mtr'){
-			echo WP_MinsToRead::get_mtr($post_id);
+		if ( 'mtr' === $column ) {
+			echo esc_html( WP_MinsToRead::get_mtr( $post_id ) );
 		}
 	}
 }
